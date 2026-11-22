@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Both themes are defined as HSL channel triples on :root / .dark, so every colour in the
+ * app resolves through a token. Changing the palette is a change to this block alone.
+ * The dark theme is a genuine re-derivation (lifted surfaces, lowered chroma) rather than
+ * an inversion, which is what keeps long text readable at night.
+ */
+@layer base {
+  :root {
+    --background: 210 40% 96%;   /* page ground the app panel floats on */
+    --foreground: 222 24% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 24% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 24% 9%;
+    --primary: 222 24% 11%;            /* ink — the platform reads black on white */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 30% 95%;
+    --secondary-foreground: 222 24% 16%;
+    --muted: 210 30% 96%;
+    --muted-foreground: 215 14% 42%;
+    --accent: 217 91% 52%;             /* blue — the one interactive colour */
+    --accent-foreground: 0 0% 100%;
+    --danger: 0 72% 48%;
+    --danger-foreground: 0 0% 100%;
+    --success: 152 58% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 92% 46%;
+    --warning-foreground: 30 60% 12%;
+    --border: 214 22% 87%;
+    --input: 214 20% 87%;
+    --ring: 217 91% 52%;
+    --sidebar: 0 0% 100%;        /* the rail is a white surface, like a card */
+    --sidebar-foreground: 222 20% 28%;
+    --shadow-color: 215 30% 20%;
+    --radius: 1.25rem;
+  }
+
+  .dark {
+    --background: 222 26% 4%;    /* darkest: the ground */
+    --foreground: 210 18% 95%;
+    --card: 222 16% 12%;         /* lightest: the content panel */
+    --card-foreground: 210 18% 95%;
+    --popover: 222 18% 11%;
+    --popover-foreground: 210 18% 95%;
+    --primary: 0 0% 98%;               /* ink inverts to white in the dark theme */
+    --primary-foreground: 222 24% 10%;
+    --secondary: 222 12% 18%;
+    --secondary-foreground: 210 18% 92%;
+    --muted: 222 12% 16%;
+    --muted-foreground: 215 14% 63%;
+    --accent: 213 94% 62%;             /* lifted blue holds contrast on dark surfaces */
+    --accent-foreground: 222 24% 8%;
+    --danger: 0 70% 58%;
+    --danger-foreground: 0 0% 100%;
+    --success: 152 52% 47%;
+    --success-foreground: 150 40% 6%;
+    --warning: 35 84% 57%;
+    --warning-foreground: 30 60% 10%;
+    --border: 220 12% 23%;
+    --input: 220 12% 23%;
+    --ring: 213 94% 62%;
+    --sidebar: 222 22% 8%;       /* the rail sits above the ground */
+    --sidebar-foreground: 210 14% 76%;
+    --shadow-color: 220 60% 2%;
+  }
+
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Arabic reads better with a little more line height than the Latin default. */
+  html[lang='ar'] body { line-height: 1.75; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/40; }
+
+  :focus-visible { @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background; }
+}
+
+@layer components {
+  /* Skeleton shimmer used by every loading state. */
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-muted;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 animate-shimmer;
+    background: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.06), transparent);
+    transform: translateX(-100%);
+  }
+
+  /* Numeric columns stay legible in RTL by rendering digits LTR. */
+  .numeric { direction: ltr; font-variant-numeric: tabular-nums; unicode-bidi: isolate; }
+}
+
+@layer components {
+  /*
+   * Motion used only by the marketing page's product mocks. Kept in plain CSS rather than
+   * the Tailwind theme because these are one-off, and every one of them stops dead under
+   * a reduced-motion preference — a looping screen is decoration, never information.
+   */
+  .anim-draw {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: sm-draw 2.4s ease-out forwards;
+  }
+  .anim-float { animation: sm-float 6s ease-in-out infinite; }
+  .anim-float-slow { animation: sm-float 8s ease-in-out infinite; }
+  /* The phone screens loop their own content so the mock reads as a live app. */
+  .anim-scroll-y { animation: sm-scroll-y 18s linear infinite; }
+  .anim-sweep { animation: sm-sweep 4.5s ease-in-out infinite; }
+
+  @keyframes sm-draw { to { stroke-dashoffset: 0; } }
+  @keyframes sm-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes sm-scroll-y {
+    0%, 6% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  @keyframes sm-sweep {
+    0%, 100% { opacity: 0.25; transform: translateX(-30%); }
+    50% { opacity: 0.6; transform: translateX(30%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim-draw, .anim-float, .anim-float-slow, .anim-scroll-y, .anim-sweep {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+}

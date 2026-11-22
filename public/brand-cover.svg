@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="SudaMind brand cover">
+  <!--
+    Ships as SVG rather than a photograph: it stays crisp at any panel size, weighs a few KB,
+    needs no network, and is authored in the platform's own ink-and-blue palette so the login
+    screen cannot drift from the design system.
+    Motif: the Nile's meander through desert strata, with Meroitic pyramid silhouettes.
+  -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="45%" stop-color="#0f1e3d"/>
+      <stop offset="100%" stop-color="#08111f"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#2563eb" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.24" cy="0.2" r="0.72">
+      <stop offset="0%" stop-color="#93c5fd" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#93c5fd" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="1600" fill="url(#sky)"/>
+  <rect width="1200" height="1600" fill="url(#halo)"/>
+
+  <!-- desert strata -->
+  <g fill="#ffffff" opacity="0.045">
+    <path d="M0 980 C 260 908, 470 1032, 720 962 C 920 906, 1060 948, 1200 918 L1200 1600 L0 1600 Z"/>
+    <path d="M0 1128 C 300 1064, 520 1176, 800 1106 C 980 1062, 1090 1092, 1200 1070 L1200 1600 L0 1600 Z"/>
+  </g>
+  <g fill="#ffffff" opacity="0.03">
+    <path d="M0 1280 C 340 1216, 600 1320, 900 1256 C 1040 1226, 1120 1244, 1200 1232 L1200 1600 L0 1600 Z"/>
+  </g>
+
+  <!-- the Nile -->
+  <path d="M612 -40 C 556 220, 700 372, 648 596 C 600 806, 452 902, 486 1116 C 514 1296, 660 1392, 628 1640 L748 1640 C 786 1376, 634 1276, 610 1112 C 586 946, 730 836, 776 606 C 822 372, 700 214, 744 -40 Z"
+        fill="url(#river)"/>
+  <path d="M612 -40 C 556 220, 700 372, 648 596 C 600 806, 452 902, 486 1116 C 514 1296, 660 1392, 628 1640"
+        fill="none" stroke="#bfdbfe" stroke-opacity="0.5" stroke-width="2"/>
+
+  <!-- Meroitic pyramids -->
+  <g opacity="0.9">
+    <path d="M170 1090 L268 902 L366 1090 Z" fill="#0a1526"/>
+    <path d="M268 902 L366 1090 L268 1090 Z" fill="#132340"/>
+    <path d="M336 1148 L410 1006 L484 1148 Z" fill="#0a1526"/>
+    <path d="M410 1006 L484 1148 L410 1148 Z" fill="#132340"/>
+    <path d="M868 1120 L956 952 L1044 1120 Z" fill="#0a1526"/>
+    <path d="M956 952 L1044 1120 L956 1120 Z" fill="#132340"/>
+  </g>
+
+  <!-- knowledge constellation: nodes and links, the network the platform builds -->
+  <g stroke="#93c5fd" stroke-opacity="0.28" stroke-width="1.2" fill="none">
+    <path d="M228 268 L392 196 L556 300 M392 196 L410 392 M556 300 L742 236 M410 392 L604 470 M742 236 L900 340 M604 470 L900 340 M900 340 L1010 214"/>
+  </g>
+  <g fill="#bfdbfe">
+    <circle cx="228" cy="268" r="4" opacity="0.75"/>
+    <circle cx="392" cy="196" r="6" opacity="0.9"/>
+    <circle cx="556" cy="300" r="4.5" opacity="0.8"/>
+    <circle cx="410" cy="392" r="4" opacity="0.65"/>
+    <circle cx="742" cy="236" r="5.5" opacity="0.85"/>
+    <circle cx="604" cy="470" r="4" opacity="0.7"/>
+    <circle cx="900" cy="340" r="6" opacity="0.9"/>
+    <circle cx="1010" cy="214" r="4" opacity="0.6"/>
+  </g>
+
+  <rect width="1200" height="1600" fill="url(#glow)"/>
+  <rect width="1200" height="1600" filter="url(#grain)" opacity="0.5"/>
+</svg>
